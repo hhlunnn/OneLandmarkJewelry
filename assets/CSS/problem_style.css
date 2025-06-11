@@ -1,0 +1,211 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f0e6;
+    margin: 0;
+    padding: 0;
+    font-family: "微軟正黑體";
+    line-height: 1.2;
+}
+
+header {
+    background-color: #f2edde;
+    padding: 0px 0;
+    margin: 0;
+}
+
+.logo-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+}
+
+.logo-container img {
+    width: 200px;
+    height: auto;
+    display: inline-block;
+}
+
+footer {
+    background-color: #f4f0e6;
+    text-align: center;
+    padding: 20px;
+    color: #444;
+}
+
+footer a {
+    color: #4a2c2a !important;
+    text-decoration: none;
+    display: block;
+    margin-top: 8px;
+}
+
+nav {
+    background-color: #f4f0e6;
+    width: 100%;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+}
+
+.nav-item {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    color: #4a2c2a;
+    text-decoration: none;
+    position: relative;
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 20px;
+    background-color: transparent !important;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f4f0e6;
+    border: 1px solid transparent;
+    border-radius: 0;
+    width: 210px;
+    z-index: 1;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    flex-direction: column;
+}
+
+.dropdown-menu .dropdown-item {
+    font-size: 20px;
+    color: #4a2c2a;
+    text-align: center;
+    padding: 10px 5px;
+    white-space: nowrap;
+}
+
+.map-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.map-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* QA 區塊外層 */
+#qaContent {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff9f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  /* QA 群組標題 */
+  .qa_group_1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #4a2c2a;
+    border-bottom: 2px solid #e0cfc0;
+    padding-bottom: 8px;
+  }
+  
+  /* QA 標題 */
+  .qa_title {
+    background-color: #f9f3e9;
+    padding: 15px 20px;
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #4a2c2a;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+  }
+  
+  .qa_title:hover {
+    background-color: #f1e0ce;
+  }
+  
+  /* QA 內容（預設收合） */
+  .qa_content {
+    display: none;
+    padding: 15px 20px;
+    background-color: #fffaf2;
+    border-left: 4px solid #d6bfa5;
+    border-radius: 0 0 8px 8px;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* 展開 QA */
+  .qa_title.active + .qa_content {
+    display: block;
+  }
+  
+  /* 讓箭頭動態轉向 */
+  .qa_title::after {
+    content: "▾";
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .qa_title.active::after {
+    transform: rotate(180deg);
+  }
+
+  /* QA 區塊內按鈕容器 */
+.qa_button_container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  
+  /* QA 按鈕樣式 */
+  .qa_button {
+    background-color: #d6bfa5;
+    color: #4a2c2a;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .qa_button:hover {
+    background-color: #c2a788;
+    transform: translateY(-2px);
+  }
+  

@@ -1,0 +1,403 @@
+* {
+    box-sizing: border-box;
+}
+
+.logo-container {
+    text-align: center;
+    /* 水平置中用法*/
+    display: flex;
+    justify-content: center;
+    /* 水平置中 */
+    align-items: center;
+    /* 垂直置中（若有高度）*/
+    height: 150px;
+    /* 可以設定 header 高度 */
+}
+
+.logo-container img {
+    width: 200px;
+    /* 控制圖片寬度，可調整 */
+    height: auto;
+    /* 高度自動等比例縮放 */
+    display: inline-block;
+}
+
+body {
+    background-color: #f4f0e6;
+    margin: 0;
+    font-family: "微軟正黑體";
+    line-height: 1.2;
+}
+
+header {
+    background-image: linear-gradient(to bottom, #f2edde);
+    color: rgb(147, 130, 130);
+    text-align: center;
+    padding: 0px 0;
+    margin: 0;
+}
+
+footer {
+    background-color: #f4f0e6;
+    text-align: center;
+    padding: 20px;
+    color: #444;
+}
+
+footer a {
+    color: #4a2c2a !important;
+    text-decoration: none;
+    display: block;
+    margin-top: 8px;
+}
+
+nav {
+    background-color: #f4f0e6;
+    width: 100%;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f4f0e6;
+    border: 1px solid transparent;
+    border-radius: 0;
+    width: 210px;
+    z-index: 1;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    flex-direction: column;
+}
+
+.dropdown-menu .dropdown-item {
+    font-size: 20px;
+    color: #4a2c2a;
+    text-align: center;
+    padding: 10px 5px;
+    white-space: nowrap;
+}
+
+.nav-link {
+    color: #4a2c2a;
+    text-decoration: none;
+    position: relative;
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 20px;
+    background-color: transparent !important;
+}
+
+.card {
+    background-image: url(../image/background/background_4.jpg);
+    background-size: cover;
+    padding: 15px;
+    margin: 30px 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card2 {
+    background-image: url(../image/background/background_4.jpg);
+    background-size: cover;
+    padding: 15px;
+    margin: 30px 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.submit-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.item_image1 {
+    max-width: 200px;
+    height: auto;
+    border: 3px solid white;
+}
+
+.flex1 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.picture {
+    flex: 1 1 25%;
+    text-align: center;
+    padding: 45px;
+    width: 500px;
+    max-width: 500px;
+    /* 設定最大寬度限制 */
+    height: auto;
+    /* 保持比例 */
+}
+
+.picture img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+
+.flex2 {
+    flex: 1 1 70%;
+    padding: 15px;
+    padding-left: 70px;
+    text-align: left;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+
+.text h3 {
+    margin: 0;
+}
+
+.col-1 {
+    margin-top: 20px;
+}
+
+
+
+
+.reviews {
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.review {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: #f5f5f5;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.review-author {
+    font-weight: bold;
+}
+
+.review-date {
+    color: #888;
+}
+
+.star {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFD700;
+}
+
+.star-icon {
+    color: #FFD700;
+    cursor: pointer;
+    color: gray;
+}
+
+.star-icon.active {
+    color: gold;
+}
+
+
+.review-text {
+    line-height: 1.6;
+}
+
+.comment-form input[type="text"],
+.comment-form textarea,
+.comment-form select {
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.quantity-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    gap: 8px;
+}
+.quantity-wrapper button {
+    background-color: var(--color-btn-bg);
+    color: var(--color-text);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    box-shadow: var(--shadow-btn);
+    transition: background-color 0.2s;
+}
+.quantity-wrapper button:hover {
+    background-color: var(--color-btn-hover);
+}
+.quantity-wrapper input {
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.add-cart-btn {
+    margin-top: 24px;
+    background-color: var(--color-btn-bg);
+    color: var(--color-text);
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: var(--shadow-btn);
+    transition: background-color 0.2s;
+    display: inline-block;
+}
+.add-cart-btn:hover {
+    background-color: var(--color-btn-hover);
+}
+
+/* 手機和平板設備 */
+@media screen and (max-width: 768px) {
+    header {
+        padding: 10px 0;
+    }
+
+    nav {
+        padding: 10px 0;
+        text-align: center;
+        /* 將文字置中 */
+    }
+
+    .navbar-nav {
+        display: inline-block;
+        /* 讓元素為行內元素 */
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+        /* 居中對齊 */
+    }
+
+    .nav-item {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+    }
+
+    .nav-item:hover .dropdown-menu {
+        display: block;
+    }
+
+    .nav-link {
+        font-size: 18px;
+        padding: 10px;
+    }
+
+    footer {
+        padding: 15px;
+        color: #444;
+    }
+
+    .card,
+    .card2 {
+        margin: 15px 10px;
+    }
+
+    .picture,
+    .flex2 {
+        flex: 1 1 100%;
+    }
+
+    .item_image1 {
+        max-width: 50%;
+    }
+
+    .text {
+        font-size: 20px;
+        line-height: 1.5;
+    }
+
+    .flex2 {
+        padding: 0 10px;
+    }
+
+    .shopee-input-quantity {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+
+    .review {
+        padding: 15px;
+    }
+
+    .comment-form input[type="text"],
+    .comment-form textarea,
+    .comment-form select {
+        width: 100%;
+    }
+
+    .submit-container {
+        justify-content: center;
+    }
+}
+
+/* 小型設備（如手機） */
+@media screen and (max-width: 480px) {
+
+    .comment-form input[type="text"],
+    .comment-form textarea,
+    .comment-form select {
+        width: 100%;
+    }
+
+    .submit-container {
+        justify-content: center;
+    }
+}

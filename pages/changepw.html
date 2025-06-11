@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>修改密碼 | One Landmark Jewelry</title>
+  <style>
+    :root {
+      --color-header-bg: #f2edde;
+      --color-card-bg: #e8e3d6;
+      --color-btn-bg: #ffffff;
+      --color-btn-hover: #f2f0ec;
+      --color-text: #333333;
+      --color-text-secondary: #666666;
+      --shadow-btn: 0 2px 6px rgba(0, 0, 0, 0.15);
+      --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);
+      --font-family-base: "Microsoft JhengHei", "PingFang TC", "Helvetica Neue", Arial, sans-serif;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: var(--font-family-base);
+      color: var(--color-text);
+      background-color: #ffffff;
+    }
+    a {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+    ul {
+      list-style: none;
+    }
+    label {
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: block; 
+    }
+    input {
+      width: 100%;
+      padding: 8px 10px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button {
+      font-family: var(--font-family-base);
+      background-color: var(--color-btn-bg);
+      color: var(--color-text);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      box-shadow: var(--shadow-btn);
+      cursor: pointer;
+      transition: background-color 0.2s;
+      font-size: 16px;
+      margin-right: 12px;
+    }
+    button:hover {
+      background-color: var(--color-btn-hover);
+    }
+
+  
+    header {
+      background-color: var(--color-header-bg);
+      padding: 12px 24px;
+      box-shadow: var(--shadow-card);
+    }
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .navbar .logo img {
+      height: 40px;
+    }
+    .navbar nav ul {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .navbar nav ul li {
+      position: relative;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .navbar nav ul li > a {
+      color: var(--color-text);
+      padding: 4px 0;
+      display: inline-block;
+    }
+    .navbar nav ul li > a:hover {
+      color: var(--color-text-secondary);
+    }
+
+    
+    .submenu { display: none; }
+    .has-submenu:hover > .submenu { display: block; }
+
+    
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: var(--color-card-bg);
+      padding: 32px;
+      border-radius: 8px;
+      box-shadow: var(--shadow-card);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 24px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--color-text-secondary);
+      font-size: 14px;
+      margin: 40px 0 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <a href="../index.html">
+          <img src="../assets/image/img/logo.png" alt="One Landmark Jewelry" />
+        </a>
+      </div>
+      <nav>
+        <ul class="main-menu">
+          <li><a href="member.html">會員中心</a></li>
+          <li><a href="cart.html">我的購物車</a></li>
+          <li><a href="problem.html">常見問題</a></li> </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>修改密碼</h2>
+    <form id="changePasswordForm">
+      <label for="current-password">目前密碼</label>
+      <input type="password" id="current-password" name="currentPassword" placeholder="請輸入您目前的密碼" required />
+
+      <label for="new-password">新密碼</label>
+      <input type="password" id="new-password" name="newPassword" placeholder="請輸入新密碼" required />
+
+      <label for="confirm-new-password">確認新密碼</label>
+      <input type="password" id="confirm-new-password" name="confirmNewPassword" placeholder="請再次輸入新密碼" required />
+
+      <div style="text-align: center; margin-top: 24px;">
+        <button type="submit">確認修改</button>
+        <button type="button" onclick="cancelChangePassword()">取消</button>
+      </div>
+    </form>
+  </div>
+
+  <footer>
+    <h4>桃園市中壢區中北路200號 TEL:0912345678</h4>
+    <p><a href="../pages/payment.html">付款方式</a></p>
+    <p><a href="../pages/return.html">退貨款政策</a></p>
+  </footer>
+
+  <script>
+    document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
+      e.preventDefault(); 
+
+      const currentPassword = document.getElementById('current-password').value;
+      const newPassword = document.getElementById('new-password').value;
+      const confirmNewPassword = document.getElementById('confirm-new-password').value;
+
+      if (newPassword !== confirmNewPassword) {
+        alert('新密碼與確認新密碼不符，請重新輸入！');
+        return; 
+      }
+
+      
+      // console.log('Current Password:', currentPassword);
+      // console.log('New Password:', newPassword);
+
+      alert('密碼已成功修改！'); 
+      window.location.href = 'member.html'; 
+    });
+
+    function cancelChangePassword() {
+      if (confirm('確定要取消修改密碼並返回會員中心嗎？')) {
+        window.location.href = 'member.html'; 
+      }
+    }
+  </script>
+</body>
+</html>

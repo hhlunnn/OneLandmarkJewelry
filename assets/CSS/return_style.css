@@ -1,0 +1,179 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f0e6;
+    margin: 0;
+    font-family: "微軟正黑體", sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #f2edde;
+    padding: 0;
+    margin: 0;
+}
+
+.logo-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+}
+
+.logo-container img {
+    width: 200px;
+    height: auto;
+}
+
+nav {
+    background-color: #f4f0e6;
+}
+
+.navbar-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    color: #4a2c2a;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f4f0e6;
+    border: 1px solid transparent;
+    width: 210px;
+    z-index: 1;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown-item {
+    font-size: 18px;
+    color: #4a2c2a;
+    text-align: center;
+    padding: 10px;
+    white-space: nowrap;
+}
+
+article {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fffdf9;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #4a2c2a;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: #444;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin: 30px 0;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.step {
+    flex: 0 0 auto;
+    text-align: center;
+    width: 180px;
+    margin: 0 10px;
+}
+
+.step .image {
+    background-color: #fff;
+    border: 2px solid #4a2c2a;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step img {
+    width: 40px;
+    height: 40px;
+}
+
+.arrow,
+.cycle {
+    flex: 0 0 auto;
+    width: 30px;
+    height: auto;
+}
+
+footer {
+    background-color: #f4f0e6;
+    text-align: center;
+    padding: 20px;
+    color: #444;
+}
+
+footer a {
+    color: #4a2c2a;
+    text-decoration: none;
+    display: block;
+    margin-top: 8px;
+}
+
+/* 手機版響應式設計 */
+@media screen and (max-width: 768px) {
+    .row {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .step {
+        width: 100%;
+        max-width: 250px;
+        margin-bottom: 20px;
+    }
+
+    .arrow,
+    .cycle {
+        display: none;
+    }
+}

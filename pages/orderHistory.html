@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>訂單紀錄 | One Landmark Jewelry</title>
+  <style>
+    :root {
+      --color-header-bg: #f2edde;
+      --color-card-bg: #e8e3d6;
+      --color-btn-bg: #ffffff;
+      --color-btn-hover: #f2f0ec;
+      --color-text: #333333;
+      --color-text-secondary: #666666;
+      --shadow-btn: 0 2px 6px rgba(0, 0, 0, 0.15);
+      --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);
+      --font-family-base: "Microsoft JhengHei", "PingFang TC", "Helvetica Neue", Arial, sans-serif;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: var(--font-family-base);
+      color: var(--color-text);
+      background-color: #ffffff;
+    }
+    a {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+    ul {
+      list-style: none;
+    }
+    button {
+      font-family: var(--font-family-base);
+      cursor: pointer;
+      border: none;
+      outline: none;
+      background: none;
+    }
+
+    header {
+      background-color: var(--color-header-bg);
+      padding: 12px 24px;
+      box-shadow: var(--shadow-card);
+    }
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .navbar .logo img {
+      height: 40px;
+    }
+    .main-menu {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .main-menu > li {
+      position: relative;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .main-menu > li > a {
+      padding: 4px 0;
+      display: inline-block;
+    }
+    .main-menu > li > a:hover {
+      color: var(--color-text-secondary);
+    }
+    .submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: var(--color-header-bg);
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: var(--shadow-card);
+      min-width: 180px;
+      z-index: 100;
+    }
+    .submenu li {
+      padding: 8px 16px;
+    }
+    .submenu li a {
+      display: block;
+      font-size: 14px;
+      color: var(--color-text);
+    }
+    .submenu li a:hover {
+      background-color: var(--color-card-bg);
+    }
+    .has-submenu:hover > .submenu {
+      display: block;
+    }
+    .member-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: var(--color-header-bg);
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 8px 0;
+      min-width: 140px;
+      box-shadow: var(--shadow-card);
+      display: none;
+      z-index: 100;
+    }
+    .member-dropdown li {
+      padding: 6px 16px;
+    }
+    .member-dropdown li:hover {
+      background-color: #f0ede7;
+    }
+    .member-dropdown li a {
+      display: block;
+      color: var(--color-text);
+    }
+
+    .main-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      display: flex;
+      gap: 24px;
+      padding: 0 16px;
+    }
+    .sidebar {
+      width: 240px;
+      background-color: var(--color-card-bg);
+      border-radius: 8px;
+      padding: 24px 16px;
+      box-shadow: var(--shadow-card);
+      flex-shrink: 0;
+    }
+    .sidebar .avatar {
+      width: 100px;
+      height: 100px;
+      background-color: #ccc;
+      border-radius: 50%;
+      margin: 0 auto 12px auto;
+    }
+    .sidebar p.username {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 24px;
+    }
+    .sidebar ul.menu {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sidebar ul.menu li a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 4px;
+      color: var(--color-text);
+      font-size: 16px;
+    }
+    .sidebar ul.menu li a:hover,
+    .sidebar ul.menu li a.active {
+      background-color: #dcd7cd;
+    }
+
+    .content {
+      flex: 1;
+      background-color: var(--color-card-bg);
+      border-radius: 8px;
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+    }
+    .content h2 {
+      font-size: 24px;
+      margin-bottom: 24px;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 8px;
+    }
+    .order-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    .order-table th,
+    .order-table td {
+      padding: 12px 16px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    .order-table th {
+      background-color: var(--color-card-bg);
+      font-size: 16px;
+    }
+    .order-table tr:last-child td {
+      border-bottom: none;
+    }
+    .detail-btn {
+      background-color: var(--color-btn-bg);
+      color: var(--color-text);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      box-shadow: var(--shadow-btn);
+      transition: background-color 0.2s;
+    }
+    .detail-btn:hover {
+      background-color: var(--color-btn-hover);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--color-text-secondary);
+      font-size: 14px;
+      margin: 40px 0 20px;
+    }
+  </style>
+</head>
+<body>
+  <body>
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <a href="../index.html">
+          <img src="../assets/image/img/logo.png" alt="One Landmark Jewelry" />
+        </a>
+      </div>
+
+      <nav>
+        <ul class="main-menu">
+          <li class="has-submenu">
+            <a href="#" onclick="event.preventDefault();">耳環</a>
+            <ul class="submenu dropdown-menu text-center">
+              <li><a href="../pages/item1.html">玫瑰金心珍珠耳環</a></li>
+              <li><a href="../pages/item2.html">玫瑰金幾何耳環</a></li>
+              <li><a href="../pages/item3.html">雙色金屬耳環</a></li>
+            </ul>
+          </li>
+
+          <li class="has-submenu">
+            <a href="#" onclick="event.preventDefault();">項鍊</a>
+            <ul class="submenu dropdown-menu text-center">
+              <li><a href="../pages/item4.html">雙心鑽玫瑰金項鍊</a></li>
+              <li><a href="../pages/item5.html">紫色花瓣造型項鍊</a></li>
+              <li><a href="../pages/item6.html">圓形水鑽花瓣項鍊</a></li>
+            </ul>
+          </li>
+
+          <li class="has-submenu">
+            <a href="#" onclick="event.preventDefault();">手鍊</a>
+            <ul class="submenu dropdown-menu text-center">
+              <li><a href="../pages/item7.html">玫瑰光鑽手鍊</a></li>
+              <li><a href="../pages/item8.html">冷光晶鑽手鍊</a></li>
+              <li><a href="../pages/item9.html">月光交錯手鍊</a></li>
+            </ul>
+          </li>
+
+          <li class="has-submenu">
+            <a href="#" onclick="event.preventDefault();">戒指</a>
+            <ul class="submenu dropdown-menu text-center">
+              <li><a href="../pages/item10.html">玫瑰金交錯戒</a></li>
+              <li><a href="../pages/item11.html">白金編織戒</a></li>
+              <li><a href="../pages/item12.html">扭結造型戒</a></li>
+            </ul>
+          </li> 
+
+          <li>
+            <a href="#" onclick="toggleMemberDropdown(event)">會員中心</a>
+            <ul class="member-dropdown" id="memberDropdown">
+              <li><a href="login.html">登入／註冊</a></li>
+              <li><a href="member.html">會員中心</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="cart.html">購物車</a>
+          </li>
+          <li><a href="problem.html">常見問題</a></li>
+        </ul>
+      </nav>  
+    </div>
+  </header>
+  <div class="main-container">
+    <aside class="sidebar">
+      <div class="avatar"></div>
+      <p class="username" id="sidebarName">王小明</p>
+      <ul class="menu">
+        <li><a href="member.html">會員資料</a></li>
+        <li><a href="orderHistory.html" class="active">訂單紀錄</a></li>
+        <li><a href="cart.html">我的購物車</a></li>
+        <li><a href="changePassword.html">修改密碼</a></li>
+      </ul>
+    </aside>
+
+    <section class="content">
+      <h2>紀錄</h2>
+      <table class="order-table">
+        <thead>
+          <tr>
+            <th>訂單編號</th>
+            <th>訂購日期</th>
+            <th>訂單金額</th>
+            <th>訂單狀態</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="orderTableBody">
+          
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <footer>
+    © 2025 One Landmark Jewelry. 版權所有。
+  </footer>
+
+  <script>
+    if (!localStorage.getItem('memberData')) {
+      const dummy = {
+        account: 'wangxm123',
+        name: '王小明',
+        email: 'wangxm@example.com',
+        phone: '0912-345-678',
+        registerDate: '2024-05-10'
+      };
+      localStorage.setItem('memberData', JSON.stringify(dummy));
+    }
+    if (!localStorage.getItem('ordersData')) {
+      const dummyOrders = [
+        {
+          orderId: 'ORD20250501001',
+          date: '2025-05-01',
+          amount: 1280,
+          status: '已完成'
+        },
+        {
+          orderId: 'ORD20250415002',
+          date: '2025-04-15',
+          amount: 1580,
+          status: '已取消'
+        },
+        {
+          orderId: 'ORD20250320003',
+          date: '2025-03-20',
+          amount: 720,
+          status: '已完成'
+        }
+      ];
+      localStorage.setItem('ordersData', JSON.stringify(dummyOrders));
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const member = JSON.parse(localStorage.getItem('memberData') || '{}');
+      document.getElementById('sidebarName').innerText = member.name || '';
+
+      const orders = JSON.parse(localStorage.getItem('ordersData') || '[]');
+      const tbody = document.getElementById('orderTableBody');
+
+      if (orders.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" style="color: var(--color-text-secondary);">目前尚無歷史消費紀錄。</td>
+          </tr>`;
+      } else {
+        orders.forEach((ord) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${ord.orderId}</td>
+            <td>${ord.date}</td>
+            <td>NT$ ${ord.amount}</td>
+            <td>${ord.status}</td>
+            <td><button class="detail-btn" onclick="viewOrderDetail('${ord.orderId}')">查看明細</button></td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+    });
+
+    function viewOrderDetail(orderId) {
+      alert('查看訂單明細：' + orderId + ' (此功能待串後端或彈出細節畫面)');
+    }
+
+    function toggleMemberDropdown(event) {
+      event.preventDefault();
+      const drop = document.getElementById('memberDropdown');
+      drop.style.display = drop.style.display === 'block' ? 'none' : 'block';
+    }
+    document.addEventListener('click', function(e) {
+      const drop = document.getElementById('memberDropdown');
+      if (drop && drop.style.display === 'block') {
+        if (!drop.contains(e.target) && e.target.closest('a[onclick="toggleMemberDropdown(event)"]') === null) {
+          drop.style.display = 'none';
+        }
+      }
+    });
+
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('memberName');
+      alert('已登出，將返回登入頁');
+      window.location.href = 'login.html';
+    }
+  </script>
+
+<footer>
+  <h4>桃園市中壢區中北路200號 TEL:0912345678</h4>
+  <p><a href="../pages/payment.html">付款方式</a></p>
+  <p><a href="../pages/return.html">退貨款政策</a></p>
+</footer>
+
+</body>
+</html>

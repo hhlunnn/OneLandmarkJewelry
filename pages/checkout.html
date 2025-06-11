@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>結帳 | One Landmark Jewelry</title>
+  <style>
+    :root {
+      --color-header-bg: #f2edde;
+      --color-card-bg: #e8e3d6;
+      --color-btn-bg: #ffffff;
+      --color-btn-hover: #f2f0ec;
+      --color-text: #333333;
+      --color-text-secondary: #666666;
+      --shadow-btn: 0 2px 6px rgba(0, 0, 0, 0.15);
+      --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);
+      --font-family-base: "Microsoft JhengHei", "PingFang TC", "Helvetica Neue", Arial, sans-serif;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: var(--font-family-base);
+      color: var(--color-text);
+      background-color: #ffffff;
+    }
+    a {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+    ul {
+      list-style: none;
+    }
+    button {
+      font-family: var(--font-family-base);
+      cursor: pointer;
+      border: none;
+      outline: none;
+      background: none;
+    }
+
+    /* Header / Navbar */
+    header {
+      background-color: var(--color-header-bg);
+      padding: 12px 24px;
+      box-shadow: var(--shadow-card);
+    }
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .navbar .logo img {
+      height: 40px;
+    }
+    .navbar nav ul {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .navbar nav ul li {
+      position: relative;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .navbar nav ul li > a {
+      color: var(--color-text);
+      padding: 4px 0;
+      display: inline-block;
+    }
+    .navbar nav ul li > a:hover {
+      color: var(--color-text-secondary);
+    }
+    
+    .submenu { display: none; }
+    .has-submenu:hover > .submenu { display: block; }
+    
+    .member-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: var(--color-header-bg);
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 8px 0;
+      min-width: 140px;
+      box-shadow: var(--shadow-card);
+      display: none;
+      z-index: 100;
+    }
+    .member-dropdown li {
+      padding: 6px 16px;
+    }
+    .member-dropdown li:hover {
+      background-color: #f0ede7;
+    }
+    .member-dropdown li a {
+      display: block;
+      color: var(--color-text);
+    }
+
+    /* Layout (與原本相同，不重複貼) */
+    .main-container {
+      display: flex;
+      max-width: 1200px;
+      margin: 40px auto;
+      gap: 24px;
+      padding: 0 16px;
+    }
+    .sidebar {
+      width: 240px;
+      background-color: var(--color-card-bg);
+      border-radius: 8px;
+      padding: 24px 16px;
+      box-shadow: var(--shadow-card);
+      flex-shrink: 0;
+    }
+    .sidebar .avatar {
+      width: 100px;
+      height: 100px;
+      background-color: #ccc;
+      border-radius: 50%;
+      margin: 0 auto 12px auto;
+    }
+    .sidebar p.username {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 24px;
+    }
+    .sidebar ul.menu {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sidebar ul.menu li a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 4px;
+      color: var(--color-text);
+      font-size: 16px;
+    }
+    .sidebar ul.menu li a:hover,
+    .sidebar ul.menu li a.active {
+      background-color: #dcd7cd;
+    }
+
+    .content {
+      flex: 1;
+      background-color: var(--color-card-bg);
+      border-radius: 8px;
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+    }
+    .content h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      color: var(--color-text-secondary);
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 8px;
+    }
+    .checkout-form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .checkout-section {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    .checkout-section h3 {
+      font-size: 20px;
+      margin-bottom: 16px;
+      color: var(--color-text-secondary);
+    }
+    .checkout-item {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .checkout-item label {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .checkout-item input,
+    .checkout-item select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    .checkout-item select {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .checkout-item input[type="radio"] {
+      width: auto;
+      margin-right: 8px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 16px;
+      justify-content: flex-end;
+      margin-top: 24px;
+    }
+    .btn-group button {
+      background-color: var(--color-btn-bg);
+      color: var(--color-text);
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      box-shadow: var(--shadow-btn);
+      transition: background-color 0.2s;
+      cursor: pointer;
+    }
+    .btn-group button:hover {
+      background-color: var(--color-btn-hover);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--color-text-secondary);
+      font-size: 14px;
+      margin: 40px 0 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <a href="../index.html">
+          <img src="../assets/image/img/logo.png" alt="One Landmark Jewelry" />
+        </a>
+      </div>
+      <nav>
+        <ul class="main-menu">
+          <li><a href="member.html">會員中心</a></li>
+          <li><a href="cart.html">我的購物車</a></li>
+          <li><a href="problem.html">常見問題</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <aside class="sidebar">
+      <div class="avatar"></div>
+      <p class="username" id="sidebarName">王小明</p>
+      <ul class="menu">
+        <li><a href="member.html">會員資料</a></li>
+        <li><a href="orderHistory.html">訂單歷史紀錄</a></li>
+        <li><a href="cart.html">我的購物車</a></li>
+        <li><a href="changePassword.html">修改密碼</a></li>
+      </ul>
+    </aside>
+
+    <section class="content">
+      <h2>結帳資訊</h2>
+      <form id="checkoutForm" class="checkout-form">
+        <div class="checkout-section">
+          <h3>收件人資訊</h3>
+          <div class="checkout-item">
+            <label for="recipientName">收件人姓名</label>
+            <input type="text" id="recipientName" name="recipientName" required />
+          </div>
+          <div class="checkout-item">
+            <label for="recipientPhone">連絡電話</label>
+            <input type="tel" id="recipientPhone" name="recipientPhone" required />
+          </div>
+          <div class="checkout-item">
+            <label for="recipientEmail">電子郵件</label>
+            <input type="email" id="recipientEmail" name="recipientEmail" required />
+          </div>
+          <div class="checkout-item">
+            <label for="shippingAddress">收件地址</label>
+            <input type="text" id="shippingAddress" name="shippingAddress" placeholder="例如：台北市中正區仁愛路一段123號" required />
+          </div>
+        </div>
+
+        <div class="checkout-section">
+          <h3>付款方式</h3>
+          <div class="checkout-item">
+            <label>付款方式</label>
+            <select id="paymentMethod" name="paymentMethod" required>
+              <option value="">請選擇</option>
+              <option value="cashOnDelivery">貨到付款</option>
+              <option value="creditCard">信用卡</option>
+              <option value="atm">ATM 轉帳</option>
+              <option value="thirdParty">第三方支付</option>
+            </select>
+          </div>
+          <div id="creditCardFields" style="display: none;">
+            <div class="checkout-item">
+              <label for="cardNumber">信用卡號</label>
+              <input type="text" id="cardNumber" name="cardNumber" maxlength="19" placeholder="#### #### #### ####" />
+            </div>
+            <div class="checkout-item">
+              <label for="cardExpiry">有效日期 (MM/YY)</label>
+              <input type="text" id="cardExpiry" name="cardExpiry" maxlength="5" placeholder="MM/YY" />
+            </div>
+            <div class="checkout-item">
+              <label for="cardCVC">CVC</label>
+              <input type="text" id="cardCVC" name="cardCVC" maxlength="3" placeholder="123" />
+            </div>
+          </div>
+        </div>
+
+        <div class="checkout-section">
+          <h3>運送方式</h3>
+          <div class="checkout-item">
+            <label>
+              <input type="radio" name="shippingMethod" value="standard" checked />
+              標準運送 (2–3 個工作天)
+            </label>
+          </div>
+          <div class="checkout-item">
+            <label>
+              <input type="radio" name="shippingMethod" value="express" />
+              快速運送 (隔日到達)
+            </label>
+          </div>
+        </div>
+
+
+        <div class="btn-group">
+          <button type="button" onclick="window.location.href='cart.html';">返回購物車</button>
+          <button type="submit">確認並送出訂單</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <footer>
+    © 2025 One Landmark Jewelry. 版權所有。
+  </footer>
+
+  <script>
+    // 切換「會員中心 ▼」下拉選單 (此頁面已不再使用，因navbar已替換)
+    // function toggleMemberDropdown(event) {
+    //   event.preventDefault();
+    //   const drop = document.getElementById('memberDropdown');
+    //   drop.style.display = drop.style.display === 'block' ? 'none' : 'block';
+    // }
+    // document.addEventListener('click', function(e) {
+    //   const drop = document.getElementById('memberDropdown');
+    //   if (drop && drop.style.display === 'block') {
+    //     if (!drop.contains(e.target) && e.target.closest('a[onclick="toggleMemberDropdown(event)"]') === null) {
+    //       drop.style.display = 'none';
+    //     }
+    //   }
+    // });
+
+    // 載入側邊欄使用者姓名
+    window.addEventListener('DOMContentLoaded', () => {
+      const member = JSON.parse(localStorage.getItem('memberData') || '{}');
+      document.getElementById('sidebarName').innerText = member.name || '訪客';
+    });
+
+    // 切換信用卡欄位顯示
+    document.getElementById('paymentMethod').addEventListener('change', (e) => {
+      const ccFields = document.getElementById('creditCardFields');
+      if (e.target.value === 'creditCard') {
+        ccFields.style.display = 'block';
+        ccFields.querySelectorAll('input').forEach(i => i.required = true);
+      } else {
+        ccFields.style.display = 'none';
+        ccFields.querySelectorAll('input').forEach(i => i.required = false);
+      }
+    });
+
+    // 表單送出
+    document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const recipientName = document.getElementById('recipientName').value.trim();
+      const recipientPhone = document.getElementById('recipientPhone').value.trim();
+      const recipientEmail = document.getElementById('recipientEmail').value.trim();
+      const shippingAddress = document.getElementById('shippingAddress').value.trim();
+      const paymentMethod = document.getElementById('paymentMethod').value;
+
+      if (!recipientName || !recipientPhone || !recipientEmail || !shippingAddress || !paymentMethod) {
+        alert('請完整填寫所有必填欄位');
+        return;
+      }
+      if (paymentMethod === 'creditCard') {
+        const cardNumber = document.getElementById('cardNumber').value.trim();
+        const cardExpiry = document.getElementById('cardExpiry').value.trim();
+        const cardCVC = document.getElementById('cardCVC').value.trim();
+        if (!cardNumber || !cardExpiry || !cardCVC) {
+          alert('請填寫完整的信用卡資訊');
+          return;
+        }
+      }
+      localStorage.removeItem('cartData');
+      alert('訂單已送出！感謝您的購買');
+      window.location.href = 'orderHistory.html';
+    });
+  </script>
+</body>
+</html>

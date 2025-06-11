@@ -1,0 +1,403 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>會員登入</title>
+  <link rel="stylesheet" href="../assets/CSS/index_style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: "微軟正黑體";
+      background-color: #fff;
+    }
+    .login-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 50px 20px;
+      min-height: calc(100vh - 120px);
+    }
+    .left-side {
+      flex: 1;
+      text-align: center;
+      padding: 50px;
+      border-right: 1px solid #ccc;
+    }
+    .left-side h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+    .left-side p {
+      font-size: 18px;
+      margin-top: 40px;
+    }
+    .left-side .arrow {
+      display: block;
+      margin-top: 20px;
+      font-size: 24px;
+      animation: bounce 1s infinite alternate;
+    }
+    .form-container {
+      flex: 1;
+      margin: 50px;
+      position: relative;
+      overflow: hidden;
+      width: 400px;
+      max-width: 100%;
+      box-sizing: border-box;
+     
+    }
+    .form-wrapper {
+      position: relative; 
+      width: 100%;
+      height: auto;
+      transition: height 0.5s ease-in-out; 
+    }
+    .form {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      background: #ece8de;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      border-radius: 20px;
+      box-sizing: border-box;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .form.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+      position: relative; 
+      z-index: 1; 
+    }
+   
+    .form.inactive-left {
+        transform: translateX(-100%);
+    }
+    .form.inactive-right {
+        transform: translateX(100%);
+    }
+    .form label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 18px;
+      text-align: left;
+      width: 100%;
+    }
+    .form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .form button {
+      background-color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    .form button:hover {
+      background-color: #ddd;
+    }
+    
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .form button {
+      background-color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    .form button:hover {
+      background-color: #ddd;
+    }
+
+    .primary-button {
+      background-color: #f4f0e6;
+      color: rgb(0, 0, 0);
+      font-weight: bold;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .primary-button:hover {
+      background-color: #f4f0e6;
+      box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Keyframes for arrow bounce animation */
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .login-section {
+        flex-direction: column;
+      }
+      .left-side {
+        border-right: none;
+        padding-bottom: 20px;
+      }
+      .form-container {
+        width: 100%;
+        margin-top: 30px;
+      }
+      .form {
+        padding: 30px;
+      }
+    }
+  </style>
+  
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <a href="../index.html"><img src="../assets/image/img/logo.png" alt="網站Logo"></a>
+    </div>
+  </header>
+  
+
+  <nav>
+    <ul class="navbar-nav mb-2 mb-md-0 px-4">
+      <li class="nav-item mx-lg-3 pt-lg-5 dropdown">
+        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            會員中心
+        </a>
+        <ul class="dropdown-menu text-center">
+          <li><a class="dropdown-item" href="../pages/login.html">登入註冊</a></li>
+          <li><a class="dropdown-item" href="../pages/member.html">會員中心</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item mx-lg-3 pt-lg-5 dropdown">
+        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          耳環
+        </a>
+        <ul class="dropdown-menu text-center">
+          <li><a class="dropdown-item" href="../pages/item1.html">玫瑰金心珍珠耳環</a></li>
+          <li><a class="dropdown-item" href="../pages/item2.html">玫瑰金幾何耳環</a></li>
+          <li><a class="dropdown-item" href="../pages/item3.html">雙色金屬耳環</a></li>
+        </ul>
+      </li>
+      <li class="nav-item mx-lg-3 pt-lg-5 dropdown">
+        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          項鍊
+        </a>
+        <ul class="dropdown-menu text-center">
+          <li><a class="dropdown-item" href="../pages/item4.html">雙心鑽玫瑰金項鍊</a></li>
+          <li><a class="dropdown-item" href="../pages/item5.html">紫色花瓣造型項鍊</a></li>
+          <li><a class="dropdown-item" href="../pages/item6.html">圓形水鑽花瓣項鍊</a></li>
+        </ul>
+      </li>
+      <li class="nav-item mx-lg-3 pt-lg-5 dropdown">
+        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          手鍊
+        </a>
+        <ul class="dropdown-menu text-center">
+          <li><a class="dropdown-item" href="../pages/item7.html">玫瑰光鑽手鍊</a></li>
+          <li><a class="dropdown-item" href="../pages/item8.html">冷光晶鑽手鍊</a></li>
+          <li><a class="dropdown-item" href="../pages/item9.html">月光交錯手鍊</a></li>
+        </ul>
+      </li>
+      <li class="nav-item mx-lg-3 pt-lg-5 dropdown">
+        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          戒指
+        </a>
+        <ul class="dropdown-menu text-center">
+          <li><a class="dropdown-item" href="../pages/item10.html">玫瑰金交錯戒</a></li>
+          <li><a class="dropdown-item" href="../pages/item11.html">白金編織戒</a></li>
+          <li><a class="dropdown-item" href="../pages/item12.html">扭結造型戒</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item mx-lg-3 pt-lg-5">
+        <a class="nav-link d-flex align-items-center" aria-current="page" href="../pages/cart.html">購物車</a>
+      </li>
+
+      <li class="nav-item mx-lg-3 pt-lg-5">
+        <a class="nav-link active" aria-current="page" href="../pages/problem.html">常見問題</a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <section class="login-section">
+    <div class="left-side">
+      <h1>登入</h1>
+      <h1>LOGIN</h1>
+      <div class="arrow">→</div>
+      <p>DIVE IN WITH US</p>
+    </div>
+    <div class="form-container">
+      <div class="form-wrapper">
+        <div class="form active" id="loginFormContainer">
+          <form id="loginForm">
+            <label for="login-username">帳號</label>
+            <input type="text" id="login-username" name="username" placeholder="username" required>
+            <label for="login-password">密碼</label>
+            <input type="password" id="login-password" name="password" placeholder="password" required>
+            <div class="button-container">
+              <button type="button" onclick="showForm(1)">註冊</button>
+              <button type="button" onclick="showForm(2)">忘記密碼</button>
+              <button type="submit" class="primary-button">登入→</button>
+            </div>
+          </form>
+        </div>
+        <div class="form" id="registerFormContainer">
+          <form id="registerForm">
+            <label for="reg-name">姓名</label>
+            <input type="text" id="reg-name" name="name" placeholder="name" required>
+            <label for="reg-email">電子郵件</label>
+            <input type="email" id="reg-email" name="email" placeholder="email" required>
+            <label for="reg-phone">電話</label>
+            <input type="tel" id="reg-phone" name="phone" placeholder="phone" required>
+            <label for="reg-password">密碼</label>
+            <input type="password" id="reg-password" name="password" placeholder="password" required>
+            <div class="button-container">
+              <button type="button" onclick="showForm(0)">返回</button>
+              <button type="submit" class="primary-button">註冊</button>
+            </div>
+          </form>
+        </div>
+        <div class="form" id="forgotFormContainer">
+          <form id="forgotForm">
+            <label for="forgot-email">電子郵件</label>
+            <input type="email" id="forgot-email" name="email" placeholder="email" required>
+            <div class="button-container">
+              <button type="button" onclick="showForm(0)">返回</button>
+              <button type="submit" class="primary-button">送出</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function showForm(index) {
+      const forms = document.querySelectorAll('.form');
+      const formWrapper = document.querySelector('.form-wrapper');
+      const currentActiveForm = document.querySelector('.form.active');
+      let currentIndex = -1;
+
+      if (currentActiveForm) {
+        forms.forEach((form, i) => {
+          if (form === currentActiveForm) {
+            currentIndex = i;
+          }
+
+          form.classList.remove('active', 'inactive-left', 'inactive-right');
+          form.style.transform = ''; 
+          form.style.opacity = '0'; 
+          form.style.pointerEvents = 'none'; 
+          form.style.position = 'absolute'; 
+        });
+      }
+
+      const targetForm = forms[index];
+
+      
+      if (currentIndex !== -1 && index > currentIndex) { 
+        if (currentActiveForm) currentActiveForm.classList.add('inactive-left');
+        targetForm.style.transform = 'translateX(100%)'; 
+      } else if (currentIndex !== -1 && index < currentIndex) { 
+        if (currentActiveForm) currentActiveForm.classList.add('inactive-right');
+        targetForm.style.transform = 'translateX(-100%)'; 
+      } else { 
+        targetForm.style.transform = 'translateX(0)'; 
+      }
+
+      // Activate the target form
+      targetForm.classList.add('active');
+      targetForm.style.transform = 'translateX(0)'; 
+      targetForm.style.opacity = '1';
+      targetForm.style.pointerEvents = 'auto';
+      targetForm.style.position = 'relative'; 
+
+
+      requestAnimationFrame(() => {
+        formWrapper.style.height = `${targetForm.offsetHeight}px`;
+      });
+    }
+
+
+    window.addEventListener('load', () => {
+     
+      requestAnimationFrame(() => {
+        showForm(0); 
+      });
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+
+      if (!username || !password) {
+        alert('請輸入帳號與密碼');
+        return;
+      }
+      window.location.href = '../../index.html';
+    });
+
+
+    document.getElementById('registerForm').addEventListener('submit', e => {
+      e.preventDefault();
+      alert('註冊成功！');
+   
+      showForm(0); 
+    });
+
+    document.getElementById('forgotForm').addEventListener('submit', e => {
+      e.preventDefault();
+      alert('重設密碼連結已寄出！');
+      showForm(0); 
+    });
+  </script>
+
+
+<footer>
+  <h4>桃園市中壢區中北路200號 TEL:0912345678</h4>
+  <p><a href="../pages/payment.html">付款方式</a></p>
+  <p><a href="../pages/return.html">退貨款政策</a></p>
+</footer>
+
+
+</body>
+</html>
