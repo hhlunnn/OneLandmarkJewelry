@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
@@ -373,7 +373,19 @@
         alert('請輸入帳號與密碼');
         return;
       }
-      window.location.href = '../index.html';
+      // Simulate successful login
+      localStorage.setItem('isLoggedIn', 'true');
+      // Store dummy member data upon login for member page display
+      const dummy = {
+        account: username,
+        name: '王小明', // You can make this dynamic if you have a user database
+        email: 'wangxm@example.com',
+        phone: '0912-345-678',
+        registerDate: '2024-05-10'
+      };
+      localStorage.setItem('memberData', JSON.stringify(dummy));
+      alert('登入成功！');
+      window.location.href = '../pages/member.html'; // Redirect to member page
     });
 
 
