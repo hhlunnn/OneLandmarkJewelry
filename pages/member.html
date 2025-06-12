@@ -328,8 +328,8 @@
           <li>
             <a href="#" onclick="toggleMemberDropdown(event)">會員中心</a>
             <ul class="member-dropdown" id="memberDropdown">
-              <li><a href="login.html">登入／註冊</a></li>
-              <li><a href="member.html">會員中心</a></li>
+              <li><a href="login.html" id="loginRegisterLink">登入／註冊</a></li>
+              <li><a href="member.html" id="memberCenterLink">會員中心</a></li>
             </ul>
           </li>
           <li>
@@ -412,35 +412,27 @@
 
     function logout() {
       localStorage.removeItem('isLoggedIn');
-      localStorage.removeItem('memberName');
+      localStorage.removeItem('memberData'); // Clear member data on logout
       alert('已登出，將返回登入頁');
       window.location.href = 'login.html';
     }
 
-    if (!localStorage.getItem('memberData')) {
-  const dummy = {
-    account: 'wangxm123',
-    name: '王小明',
-    email: 'wangxm@example.com',
-    phone: '0912-345-678',
-    registerDate: '2024-05-10'
-  };
-  localStorage.setItem('memberData', JSON.stringify(dummy));
-}
+    // Redirect to login if not logged in
+    window.addEventListener('DOMContentLoaded', () => {
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            alert('請先登入！');
+            window.location.href = 'login.html';
+        } else {
+            const data = JSON.parse(localStorage.getItem('memberData') || '{}');
+            document.getElementById('sidebarName').innerText = data.name || '';
+            document.getElementById('memberName').innerText = data.name || '';
+            document.getElementById('memberAccount').innerText = data.account || '';
+            document.getElementById('memberEmail').innerText = data.email || '';
+            document.getElementById('memberPhone').innerText = data.phone || '';
+            document.getElementById('memberRegisterDate').innerText = data.registerDate || '';
+        }
+    });
 
-window.addEventListener('DOMContentLoaded', () => {
-    const data = JSON.parse(localStorage.getItem('memberData') || '{}');
-    document.getElementById('sidebarName').innerText = data.name || '';
-  });
-
-window.addEventListener('DOMContentLoaded', () => {
-  const data = JSON.parse(localStorage.getItem('memberData') || '{}');
-  document.getElementById('memberName').innerText = data.name || '';
-  document.getElementById('memberAccount').innerText = data.account || '';
-  document.getElementById('memberEmail').innerText = data.email || '';
-  document.getElementById('memberPhone').innerText = data.phone || '';
-  document.getElementById('memberRegisterDate').innerText = data.registerDate || '';
-});
 
 if (!localStorage.getItem('commentsData')) {
   const dummyComments = [
